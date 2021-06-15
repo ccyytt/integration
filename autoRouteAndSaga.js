@@ -13,8 +13,8 @@ module.exports = function (content) {
   this.cacheable(false);
   let routeReplace = options.routeReplace;
   let storeReplace = options.storeReplace;
+  this.addContextDependency(path.join(process.cwd(), options.watch));
   if (storeReplace.test(content)) {
-    this.addContextDependency(path.join(process.cwd(), options.modelDir));
     const url = path.join(process.cwd(), options.modelDir);
     let addStr = "";
     const sagaDir = fs.readdirSync(path.join(process.cwd(), options.modelDir));
@@ -37,7 +37,6 @@ module.exports = function (content) {
     return callback(null, addStr);
   }
   if (routeReplace.test(content)) {
-    this.addContextDependency(path.join(process.cwd(), options.pageDir));
     const url = path.join(process.cwd(), options.pageDir);
     const dir = fs.readdirSync(url);
     let addStr = "",
